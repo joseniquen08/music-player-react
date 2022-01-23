@@ -13,13 +13,13 @@ const TrackContextProvider = ({ children }) => {
   const [tracklist, setTracklist] = useState([]);
 
   useEffect(() => {
-    fetch('https://api.deezer.com/track/1594959971')
+    fetch('https://corsanywhere.herokuapp.com/https://api.deezer.com/track/1594959971')
     .then(response => response.json())
     .then(song => setCurrentSong({song, autoplay: false}));
   }, []);
 
   const skipSong = (idSong) => {
-    fetch(`https://api.deezer.com/track/${idSong}`)
+    fetch(`https://corsanywhere.herokuapp.com/https://api.deezer.com/track/${idSong}`)
       .then(response => response.json())
       .then(song => {
         setCurrentSong({song, autoplay: true});
@@ -28,7 +28,7 @@ const TrackContextProvider = ({ children }) => {
 
   const selectSong = (idSong) => {
     setSongReady(false);
-    fetch(`https://api.deezer.com/track/${idSong}`)
+    fetch(`https://corsanywhere.herokuapp.com/https://api.deezer.com/track/${idSong}`)
       .then(response => response.json())
       .then(song => {
         setCurrentSong({song, autoplay: true});

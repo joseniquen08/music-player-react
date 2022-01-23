@@ -16,11 +16,10 @@ export const Search = () => {
   const searchTracks = (e) => {
     e.preventDefault();
     setLoadingSearch(true);
-    fetch(`https://api.deezer.com/search?q=${inputRef.current.value}&limit=5&index=0`)
+    fetch(`https://corsanywhere.herokuapp.com/https://api.deezer.com/search?q=${inputRef.current.value}&limit=5&index=0`)
       .then(response => response.json())
       .then(data => {
         setLoadingSearch(false);
-        console.log(data);
         setIndex(1);
         setCurrentPage(1);
         setResults(data);
@@ -29,11 +28,10 @@ export const Search = () => {
 
   const nextSearch = () => {
     setLoadingSearch(true);
-    fetch(`${results.next}`)
+    fetch(`https://corsanywhere.herokuapp.com/${results.next}`)
       .then(response => response.json())
       .then(data => {
         setLoadingSearch(false);
-        console.log(data);
         setIndex(index + 5);
         setCurrentPage(currentPage + 1);
         setResults(data);
@@ -42,11 +40,10 @@ export const Search = () => {
 
   const prevSearch = () => {
     setLoadingSearch(true);
-    fetch(`${results.prev}`)
+    fetch(`https://corsanywhere.herokuapp.com/${results.prev}`)
       .then(response => response.json())
       .then(data => {
         setLoadingSearch(false);
-        console.log(data);
         setIndex(index - 5);
         setCurrentPage(currentPage - 1);
         setResults(data);
