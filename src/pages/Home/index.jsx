@@ -20,7 +20,7 @@ export const Home = () => {
               currentSong && <MusicWidget currentSong={currentSong} tracklist={tracklist}/>
             }
             <div className="flex flex-col items-center space-y-1">
-              <p className="text-lg">You can only hear part of the song.</p>
+              <p className="text-lg">You can only listen to 30 seconds of the song.</p>
               <p className="text-lg">Those are the API conditions :)</p>
             </div>
             <div className="flex flex-col items-center space-y-1">
