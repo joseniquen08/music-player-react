@@ -10,9 +10,9 @@ export const Home = () => {
 
   return (
     <div className="min-h-screen py-10 text-white bg-stone-900 font-inter">
-      <div className="flex flex-col items-center h-full mx-auto space-y-8 max-w-7xl">
-        <div className="flex flex-col items-center space-y-5">
-          <p className="text-5xl font-bold cursor-default">Music Player</p>
+      <div className="flex flex-col items-center h-full mx-auto space-y-9 max-w-7xl">
+        <div className="flex flex-col items-center">
+          <p className="py-1 text-6xl font-bold text-transparent cursor-default bg-gradient-to-r from-pink-600 via-pink-500 to-pink-400 bg-clip-text">Music Player</p>
         </div>
         <div className="w-full lg:flex lg:justify-center lg:space-x-4">
           <div className="flex flex-col items-center space-y-5">

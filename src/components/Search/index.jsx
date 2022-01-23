@@ -84,8 +84,8 @@ export const Search = () => {
                       ))
                     }
                   </ul>
-                  <div className="flex items-center justify-between px-4 py-3 mt-2.5 border-gray-200 rounded-lg bg-stone-900 sm:px-6">
-                    <div className="flex justify-between flex-1 sm:hidden">
+                  <div className="flex sm:flox-row flex-col space-y-1 sm:space-y-0 items-center justify-between px-4 py-3 mt-2.5 border-gray-200 rounded-lg bg-stone-900 sm:px-6">
+                    <div className="flex justify-between flex-1 w-full sm:hidden">
                       <button onClick={() => prevSearch()} disabled={currentPage === 1 ? true : false} className="relative inline-flex items-center px-4 py-2 text-sm font-medium border rounded-md border-stone-300 disabled:border-stone-600 text-stone-400 bg-stone-900 hover:bg-stone-800 disabled:hover:bg-stone-900 disabled:text-stone-600">
                         Previous
                       </button>
@@ -94,21 +94,21 @@ export const Search = () => {
                         Next
                       </button>
                     </div>
-                    <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div className="flex justify-center w-full sm:flex-1 sm:items-center sm:justify-between">
                       <div>
                         <p className="text-sm text-stone-500">
                           Showing <span className="font-medium">{index}</span> to <span className="font-medium">{results.data.length === 5 ? results.data.length * currentPage : (5 * (currentPage - 1)) + results.data.length }</span> of <span className="font-medium">{results.total}</span> results
                         </p>
                       </div>
-                      <div>
+                      <div className="hidden sm:block">
                         <nav className="relative z-0 inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                          <button onClick={() => prevSearch()} disabled={currentPage === 1 ? true : false} className="relative inline-flex items-center px-2 py-2 text-sm font-medium border border-gray-300 text-stone-400 bg-stone-900 rounded-l-md hover:bg-stone-800 disabled:hover:bg-stone-900 disabled:text-stone-600">
+                          <button onClick={() => prevSearch()} disabled={currentPage === 1 ? true : false} className="relative inline-flex items-center px-2 py-2 text-sm font-medium border border-gray-300 text-stone-400 bg-stone-900 rounded-l-md hover:bg-stone-800 disabled:hover:bg-stone-900 disabled:text-stone-700">
                             <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                               <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
                           </button>
                           <p className="relative inline-flex items-center px-4 py-2 text-sm font-medium border border-gray-300 cursor-default text-stone-300 bg-stone-900">{currentPage}</p>
-                          <button onClick={() => nextSearch()} disabled={currentPage === Math.ceil(results.total / 5) ? true : false} className="relative inline-flex items-center px-2 py-2 text-sm font-medium border border-gray-300 text-stone-400 bg-stone-900 rounded-r-md hover:bg-stone-800 disabled:hover:bg-stone-900 disabled:text-stone-600">
+                          <button onClick={() => nextSearch()} disabled={currentPage === Math.ceil(results.total / 5) ? true : false} className="relative inline-flex items-center px-2 py-2 text-sm font-medium border border-gray-300 text-stone-400 bg-stone-900 rounded-r-md hover:bg-stone-800 disabled:hover:bg-stone-900 disabled:text-stone-700">
                             <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                               <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                             </svg>

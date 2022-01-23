@@ -30,7 +30,7 @@ export const ResultItem = ({ id, title, album, artist, image, duration }) => {
     <li className="bg-stone-900 px-4 py-3 rounded-lg flex space-x-3.5 w-full max-w-3xl mx-auto justify-between">
       <div className="flex space-x-3.5 w-full">
         <button type="button" onClick={() => clickSong(id)}className="relative flex-none overflow-hidden bg-stone-900">
-          <img src={image} alt="" width="85" height="85" className="flex-none rounded-lg"/>
+          <img src={image} alt="" width="70" height="70" className="flex-none rounded-lg"/>
           <div className="absolute inset-0 flex items-center justify-center bg-stone-900/30">
             {
               isLoadingSelectSong && !songReady ? (
