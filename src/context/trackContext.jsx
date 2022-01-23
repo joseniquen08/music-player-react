@@ -7,9 +7,8 @@ export const useTrackContext = () => useContext(TrackContext);
 const TrackContextProvider = ({ children }) => {
 
   const [currentSong, setCurrentSong] = useState(null);
-  const [urlTracklist, setUrlTracklist] = useState(null);
   const [songReady, setSongReady] = useState(false);
-  const [indexTracklist, setIndexTracklist] = useState(1);
+  const [indexTracklist, setIndexTracklist] = useState(0);
   const [tracklist, setTracklist] = useState([]);
 
   useEffect(() => {
@@ -26,27 +25,44 @@ const TrackContextProvider = ({ children }) => {
       });
   }
 
-  const selectSong = (idSong) => {
+  const selectSong = async (idSong) => {
+    let urlTracklist = null;
     setSongReady(false);
-    fetch(`https://corsanywhere.herokuapp.com/https://api.deezer.com/track/${idSong}`)
+    await fetch(`https://corsanywhere.herokuapp.com/https://api.deezer.com/track/${idSong}`)
       .then(response => response.json())
       .then(song => {
+        setIndexTracklist(0);
         setCurrentSong({song, autoplay: true});
-        setUrlTracklist(song.album.tracklist);
+        urlTracklist = song.artist.tracklist;
+        console.log(song);
+      })
+      .then(() => fetch(`https://corsanywhere.herokuapp.com/${urlTracklist}`))
+      .then(response => response.json())
+      .then(tracklist => {
+        setTracklist(tracklist.data);
+        console.log(tracklist.data);
         setSongReady(true);
       });
-    fetch(urlTracklist)
-      .then(response => response.json())
-      .then(tracklist => setTracklist(tracklist.data));
   }
 
-  const changeIndexTracklist = () => {
+  const prevIndexTracklist = () => {
+    setIndexTracklist(indexTracklist - 1);
+  }
+
+  const nextIndexTracklist = () => {
     setIndexTracklist(indexTracklist + 1);
   }
 
   return (
     <TrackContext.Provider value={{
-      currentSong, selectSong, tracklist, skipSong, indexTracklist, changeIndexTracklist, songReady
+      currentSong,
+      selectSong,
+      tracklist,
+      skipSong,
+      indexTracklist,
+      prevIndexTracklist,
+      nextIndexTracklist,
+      songReady
     }}>
       {children}
     </TrackContext.Provider>

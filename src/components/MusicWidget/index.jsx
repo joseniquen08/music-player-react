@@ -2,7 +2,7 @@ import { faPause, faPlay, faStepBackward, faStepForward, faVolumeMute, faVolumeU
 import { useRef, useState } from "react";
 import { Icon } from "../Stateless/Icon";
 
-export const MusicWidget = ({ currentSong, tracklist }) => {
+export const MusicWidget = ({ currentSong, indexTracklist, tracklist, prevIndexTracklist, nextIndexTracklist, skipSong }) => {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -66,6 +66,16 @@ export const MusicWidget = ({ currentSong, tracklist }) => {
     return (time < 10) ? ('0' + time) : + time;
   }
 
+  const prevTracklist = () => {
+    prevIndexTracklist();
+    skipSong(tracklist[indexTracklist - 2].id);
+  }
+
+  const nextTracklist = () => {
+    nextIndexTracklist();
+    skipSong(tracklist[indexTracklist].id);
+  }
+
   return (
     <div className="px-4 w-full lg:px-2 xs:max-w-[460px] md:w-[460px]">
       <div className="px-6 py-5 space-y-6 border-b bg-stone-800 border-stone-500 rounded-t-xl ">
@@ -101,7 +111,7 @@ export const MusicWidget = ({ currentSong, tracklist }) => {
       </div>
       <div className="flex items-center justify-between px-6 bg-stone-600 rounded-b-xl">
         <div className="flex items-center space-x-3">
-          <button type="button" disabled={tracklist.length === 0 ? true : false} className="flex items-center justify-center rounded-full text-stone-200 disabled:text-stone-500 h-11 w-11 disabled:hover:bg-stone-600 hover:bg-stone-700/50">
+          <button type="button" onClick={() => prevTracklist()} disabled={tracklist.length === 0 || indexTracklist === 0 || indexTracklist === 1 ? true : false} className="flex items-center justify-center rounded-full text-stone-200 disabled:text-stone-500 h-11 w-11 disabled:hover:bg-stone-600 hover:bg-stone-700/50">
             <Icon icon={faStepBackward} size={"lg"} />
           </button>
           <button onClick={() => tooglePToP()} type="button" className="flex items-center justify-center flex-none mx-auto my-2.5 rounded-full shadow-md w-11 h-11 bg-slate-100 text-pink-600 ring-1 ring-slate-900/5" aria-label="Pause">
@@ -113,7 +123,7 @@ export const MusicWidget = ({ currentSong, tracklist }) => {
                 )
             }
           </button>
-          <button type="button" disabled={tracklist.length === 0 ? true : false} className="flex items-center justify-center rounded-full text-stone-200 disabled:text-stone-500 h-11 w-11 disabled:hover:bg-stone-600 hover:bg-stone-700/50">
+          <button type="button" onClick={() => nextTracklist()} disabled={tracklist.length === 0 || indexTracklist === tracklist.length ? true : false} className="flex items-center justify-center rounded-full text-stone-200 disabled:text-stone-500 h-11 w-11 disabled:hover:bg-stone-600 hover:bg-stone-700/50">
             <Icon icon={faStepForward} size={"lg"} />
           </button>
         </div>

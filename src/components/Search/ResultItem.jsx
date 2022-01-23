@@ -11,7 +11,7 @@ export const ResultItem = ({ id, title, album, artist, image, duration }) => {
 
   const [isLoadingSelectSong, setIsLoadingSelectSong] = useState(false);
 
-  const clickSong = (id) => {
+  const clickSong = async (id) => {
     selectSong(id);
     setIsLoadingSelectSong(true);
   }
