@@ -1,11 +1,15 @@
 import { Kbd } from "@chakra-ui/react";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
+import { endPoints } from "../../utils/constants";
 import { Icon } from "../Stateless/Icon";
 import { LoadingResults } from "../Stateless/Loading/LoadingResults";
 import { ResultItem } from "./ResultItem";
 
 export const Search = () => {
+
+  const URL_CORS = endPoints.URL_CORS_PROXY;
+  const URL_SEARCH = endPoints.URL_SEARCH_API;
 
   const [results, setResults] = useState({data: []});
   const [loadingSearch, setLoadingSearch] = useState(false);
@@ -16,7 +20,7 @@ export const Search = () => {
   const searchTracks = (e) => {
     e.preventDefault();
     setLoadingSearch(true);
-    fetch(`https://corsanywhere.herokuapp.com/https://api.deezer.com/search?q=${inputRef.current.value}&limit=5&index=0`)
+    fetch(`${URL_CORS}${URL_SEARCH}${inputRef.current.value}&limit=5&index=0`)
       .then(response => response.json())
       .then(data => {
         setLoadingSearch(false);
@@ -28,7 +32,7 @@ export const Search = () => {
 
   const nextSearch = () => {
     setLoadingSearch(true);
-    fetch(`https://corsanywhere.herokuapp.com/${results.next}`)
+    fetch(`${URL_CORS}${results.next}`)
       .then(response => response.json())
       .then(data => {
         setLoadingSearch(false);
@@ -40,7 +44,7 @@ export const Search = () => {
 
   const prevSearch = () => {
     setLoadingSearch(true);
-    fetch(`https://corsanywhere.herokuapp.com/${results.prev}`)
+    fetch(`${URL_CORS}${results.prev}`)
       .then(response => response.json())
       .then(data => {
         setLoadingSearch(false);

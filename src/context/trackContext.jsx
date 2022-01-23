@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { endPoints } from '../utils/constants';
 
 const TrackContext = createContext([]);
 
@@ -6,19 +7,22 @@ export const useTrackContext = () => useContext(TrackContext);
 
 const TrackContextProvider = ({ children }) => {
 
+  const URL_CORS = endPoints.URL_CORS_PROXY;
+  const URL_API = endPoints.URL_API_DEEZER;
+
   const [currentSong, setCurrentSong] = useState(null);
   const [songReady, setSongReady] = useState(false);
   const [indexTracklist, setIndexTracklist] = useState(0);
   const [tracklist, setTracklist] = useState([]);
 
   useEffect(() => {
-    fetch('https://corsanywhere.herokuapp.com/https://api.deezer.com/track/1594959971')
+    fetch(`${URL_CORS}${URL_API}1594959971`)
     .then(response => response.json())
     .then(song => setCurrentSong({song, autoplay: false}));
-  }, []);
+  }, [URL_CORS, URL_API]);
 
   const skipSong = (idSong) => {
-    fetch(`https://corsanywhere.herokuapp.com/https://api.deezer.com/track/${idSong}`)
+    fetch(`${URL_CORS}${URL_API}${idSong}`)
       .then(response => response.json())
       .then(song => {
         setCurrentSong({song, autoplay: true});
@@ -28,7 +32,7 @@ const TrackContextProvider = ({ children }) => {
   const selectSong = async (idSong) => {
     let urlTracklist = null;
     setSongReady(false);
-    await fetch(`https://corsanywhere.herokuapp.com/https://api.deezer.com/track/${idSong}`)
+    await fetch(`${URL_CORS}${URL_API}${idSong}`)
       .then(response => response.json())
       .then(song => {
         setIndexTracklist(0);
@@ -36,7 +40,7 @@ const TrackContextProvider = ({ children }) => {
         urlTracklist = song.artist.tracklist;
         console.log(song);
       })
-      .then(() => fetch(`https://corsanywhere.herokuapp.com/${urlTracklist}`))
+      .then(() => fetch(`${URL_CORS}${urlTracklist}`))
       .then(response => response.json())
       .then(tracklist => {
         setTracklist(tracklist.data);
