@@ -1,13 +1,200 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.progress-bar-audio {
+  --bar-bg: #F9A8D4;
+  --seek-before-width: 0;
+  --seek-before-color: #F472B6;
+  --knobby: #DB2777;
+  --selectedKnobby: #BE185D;
+
+  appearance: none;
+  background: var(--bar-bg);
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  height: 11px;
+  outline: none;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.progress-bar-volume {
+  --bar-bg: #F9A8D4;
+  --seek-before-width: 90px;
+  --seek-before-color: #F472B6;
+  --knobby: #DB2777;
+  --selectedKnobby: #BE185D;
+
+  appearance: none;
+  background: var(--bar-bg);
+  border-radius: 10px;
+  position: relative;
+  height: 8px;
+  outline: none;
+}
+
+.progress-bar-audio::-webkit-slider-runnable-track {
+  background: var(--bar-bg);
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  height: 11px;
+  outline: none;
+}
+
+.progress-bar-volume::-webkit-slider-runnable-track {
+  background: var(--bar-bg);
+  border-radius: 10px;
+  position: relative;
+  height: 8px;
+  outline: none;
+}
+
+.progress-bar-audio::-moz-range-track {
+  background: var(--bar-bg);
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  height: 11px;
+  outline: none;
+}
+
+.progress-bar-volume::-moz-range-track {
+  background: var(--bar-bg);
+  border-radius: 10px;
+  position: relative;
+  height: 8px;
+  outline: none;
+}
+
+.progress-bar-audio::-moz-focus-outer {
+  border: 0;
+}
+
+.progress-bar-volume::-moz-focus-outer {
+  border: 0;
+}
+
+.progress-bar-audio::before {
+  content: '';
+  height: 11px;
+  width: var(--seek-before-width);
+  background-color: var(--seek-before-color);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.progress-bar-volume::before {
+  content: '';
+  height: 8px;
+  width: var(--seek-before-width);
+  background-color: var(--seek-before-color);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.progress-bar-audio::-moz-range-progress {
+  background-color: var(--seek-before-color);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: 11px;
+}
+
+.progress-bar-volume::-moz-range-progress {
+  background-color: var(--seek-before-color);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: 8px;
+}
+
+.progress-bar-audio::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  transform: scale(1.35);
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--knobby);
+  cursor: pointer;
+  position: relative;
+  margin: -4px 0 0 0;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+.progress-bar-volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  transform: scale(1.35);
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--knobby);
+  cursor: pointer;
+  position: relative;
+  margin: -2px 0 0 0;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+.progress-bar-audio:active::-webkit-slider-thumb {
+  transform: scale(1.4);
+  background: var(--selectedKnobby);
+}
+
+.progress-bar-volume:active::-webkit-slider-thumb {
+  transform: scale(1.4);
+  background: var(--selectedKnobby);
+}
+
+.progress-bar-audio::-moz-range-thumb {
+  transform: scale(1.35);
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  border: transparent;
+  background-color: var(--knobby);
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+}
+
+.progress-bar-volume::-moz-range-thumb {
+  transform: scale(1.35);
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  border: transparent;
+  background-color: var(--knobby);
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+}
+
+.progress-bar-audio:active::-moz-range-thumb {
+  transform: scale(1.4);
+  background: var(--selectedKnobby);
+}
+
+.progress-bar-volume:active::-moz-range-thumb {
+  transform: scale(1.4);
+  background: var(--selectedKnobby);
 }
