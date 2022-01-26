@@ -2,7 +2,7 @@ import { faPause, faPlay, faStepBackward, faStepForward, faVolumeMute, faVolumeU
 import { useRef, useState } from "react";
 import { Icon } from "../Stateless/Icon";
 
-export const MusicWidget = ({ currentSong, indexTracklist, tracklist, prevIndexTracklist, nextIndexTracklist, skipSong }) => {
+export const MusicWidget = ({ currentSong, indexTracklist, tracklist, prevIndexTracklist, nextIndexTracklist, skipSong, statusSong }) => {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -78,34 +78,47 @@ export const MusicWidget = ({ currentSong, indexTracklist, tracklist, prevIndexT
 
   return (
     <div className="px-4 w-full lg:px-2 xs:max-w-[460px] md:w-[460px]">
-      <div className="px-6 py-5 space-y-6 border-b bg-stone-800 border-stone-500 rounded-t-xl ">
-        <div className="flex items-start space-x-4">
-          <img src={currentSong && currentSong.song.album.cover_medium} alt="" width="105" height="105" className="flex-none rounded-lg bg-slate-100"/>
-          <div className="flex flex-col justify-end min-w-0 space-y-1 font-semibold">
-            <p className="text-xs text-pink-400 truncate">
-              {currentSong && currentSong.song.album.title}
-            </p>
-            <h2 className="text-sm truncate text-stone-400">
-              {currentSong && currentSong.song.contributors.map((artist, index) => {
-                if (index !== currentSong.song.contributors.length - 1) {
-                  return artist.name + ", "
-                }
-                return artist.name
-              })}
-            </h2>
-            <p className="text-lg text-slate-50">
-              {currentSong && currentSong.song.title}
-            </p>
-          </div>
+      <div className="px-6 py-5 space-y-2 border-b bg-stone-800 border-stone-500 rounded-t-xl ">
+        <div className="text-lg text-pink-600">
+          {
+            statusSong === 1 ? (
+              <p className="font-semibold">Default song</p>
+            ) : statusSong === 2 ? (
+              <p className="font-semibold">Selected song</p>
+            ) : (
+              <p className="font-semibold">Artist songs</p>
+            )
+          }
         </div>
-        <div className="space-y-2">
-          <div className="relative">
-            <audio ref={audioRef} src={currentSong.song.preview} preload="metadata" onLoadedMetadata={onLoadedMetadata} />
-            <input ref={progressBarRef} onChange={changeRange} type="range" min="0" max="100" step="0.01" defaultValue="0" className="progress-bar-audio"/>
+        <div className="space-y-6">
+          <div className="flex items-start space-x-4">
+            <img src={currentSong && currentSong.song.album.cover_medium} alt="" width="105" height="105" className="flex-none rounded-lg bg-slate-100"/>
+            <div className="flex flex-col justify-end min-w-0 space-y-1 font-semibold">
+              <p className="text-xs text-pink-400 truncate">
+                {currentSong && currentSong.song.album.title}
+              </p>
+              <h2 className="text-sm truncate text-stone-400">
+                {currentSong && currentSong.song.contributors.map((artist, index) => {
+                  if (index !== currentSong.song.contributors.length - 1) {
+                    return artist.name + ", "
+                  }
+                  return artist.name
+                })}
+              </h2>
+              <p className="text-lg text-slate-50">
+                {currentSong && currentSong.song.title}
+              </p>
+            </div>
           </div>
-          <div className="flex justify-between text-sm font-medium leading-6 tabular-nums">
-            <div className="text-slate-100">{`${leadingZero(currentTime % 60 === currentTime ? 0 : Math.trunc(currentTime / 60))}:${leadingZero(currentTime % 60)}`}</div>
-            <div className="text-slate-100">{(duration && !isNaN(duration)) && (`${leadingZero(duration % 60 === duration ? 0 : Math.trunc(duration / 60))}:${leadingZero(duration % 60)}`)}</div>
+          <div className="space-y-2">
+            <div className="relative">
+              <audio ref={audioRef} src={currentSong.song.preview} preload="metadata" onLoadedMetadata={onLoadedMetadata} />
+              <input ref={progressBarRef} onChange={changeRange} type="range" min="0" max="100" step="0.01" defaultValue="0" className="progress-bar-audio"/>
+            </div>
+            <div className="flex justify-between text-sm font-medium leading-6 tabular-nums">
+              <div className="text-slate-100">{`${leadingZero(currentTime % 60 === currentTime ? 0 : Math.trunc(currentTime / 60))}:${leadingZero(currentTime % 60)}`}</div>
+              <div className="text-slate-100">{(duration && !isNaN(duration)) && (`${leadingZero(duration % 60 === duration ? 0 : Math.trunc(duration / 60))}:${leadingZero(duration % 60)}`)}</div>
+            </div>
           </div>
         </div>
       </div>
