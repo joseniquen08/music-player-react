@@ -6,7 +6,16 @@ import { useTrackContext } from '../../context/trackContext';
 
 export const Home = () => {
 
-  const { currentSong, tracklist, indexTracklist, prevIndexTracklist, nextIndexTracklist, skipSong, statusSong } = useTrackContext();
+  const {
+    currentSong,
+    tracklist,
+    indexTracklist,
+    prevIndexTracklist,
+    nextIndexTracklist,
+    skipSong,
+    statusSong,
+    showMessageError
+  } = useTrackContext();
 
   return (
     <div className="min-h-screen py-10 text-white bg-stone-900 font-inter">
@@ -16,7 +25,11 @@ export const Home = () => {
         </div>
         <div className="w-full lg:flex lg:justify-center lg:space-x-4">
           <div className="flex flex-col items-center space-y-5">
-            <p className="px-4 w-full lg:px-2 xs:max-w-[460px] md:w-[460px] text-center"><span className="mr-1.5 font-semibold text-pink-600">IMPORTANT!</span>Please, before starting, visit this page <a href="https://cors-anywhere.herokuapp.com/" target="_blank" rel="noreferrer" className="text-blue-500 hover:underline underline-offset-1">https://cors-anywhere.herokuapp.com/</a> and click on "Request tempory access to the demo server" and restart the page.</p>
+            {
+              showMessageError ? (
+                <p className="px-4 w-full lg:px-2 xs:max-w-[460px] md:w-[460px] text-center"><span className="mr-1.5 font-semibold text-pink-600">IMPORTANT!</span>Please, before starting, visit this page <a href="https://cors-anywhere.herokuapp.com/" target="_blank" rel="noreferrer" className="text-blue-500 hover:underline underline-offset-1">https://cors-anywhere.herokuapp.com/</a> and click on "Request tempory access to the demo server" and restart the page.</p>
+              ) : (<></>)
+            }
             {
               currentSong && <MusicWidget
                                 currentSong={currentSong}

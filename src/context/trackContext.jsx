@@ -15,15 +15,21 @@ const TrackContextProvider = ({ children }) => {
   const [indexTracklist, setIndexTracklist] = useState(0);
   const [tracklist, setTracklist] = useState([]);
   const [statusSong, setStatusSong] = useState(1);
+  const [showMessageError, setShowMessageError] = useState(true);
 
   useEffect(() => {
     fetch(`${URL_CORS}${URL_API}1594959971`)
     .then(response => response.json())
     .then(song => {
+      setShowMessageError(false);
       setCurrentSong({song, autoplay: false});
       setStatusSong(1);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      if (err) {
+        setShowMessageError(true);
+      }
+    });
   }, [URL_CORS, URL_API]);
 
   const skipSong = (idSong) => {
@@ -73,7 +79,8 @@ const TrackContextProvider = ({ children }) => {
       prevIndexTracklist,
       nextIndexTracklist,
       songReady,
-      statusSong
+      statusSong,
+      showMessageError
     }}>
       {children}
     </TrackContext.Provider>
