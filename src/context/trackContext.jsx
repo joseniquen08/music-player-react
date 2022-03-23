@@ -18,7 +18,7 @@ const TrackContextProvider = ({ children }) => {
   const [showMessageError, setShowMessageError] = useState(true);
 
   useEffect(() => {
-    fetch(`${URL_CORS}${URL_API}1594959971`)
+    fetch(`${URL_CORS}${URL_API}603330352`)
     .then(response => response.json())
     .then(song => {
       setShowMessageError(false);
@@ -56,7 +56,6 @@ const TrackContextProvider = ({ children }) => {
       .then(response => response.json())
       .then(tracklist => {
         setTracklist(tracklist.data);
-        console.log(tracklist.data);
         setSongReady(true);
       });
   }
